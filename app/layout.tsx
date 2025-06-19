@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { inter, chewy } from "@/font";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "PathBlaze | Learn Anything, Step by Step",
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "PathBlaze",
     images: [
       {
-        url: "https://pathblaze.in/og-image.png", // Absolute path
+        url: "https://pathblaze.in/og-image.png",
         width: 1200,
         height: 630,
         alt: "PathBlaze | Learning Platform",
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
       "Track your learning journey across web dev, design, AI, and more. Visual progress. Real rewards.",
     site: "@vipulsc1",
     creator: "@vipulsc1",
-    images: ["https://pathblaze.in/og-image.png"], // Absolute path
+    images: ["https://pathblaze.in/og-image.png"],
   },
 
   icons: {
@@ -58,10 +60,8 @@ export const metadata: Metadata = {
   appleWebApp: {
     title: "PathBlaze | Learn Anything, Step by Step",
     statusBarStyle: "default",
-    capable: true, // Added for better Apple PWA support
+    capable: true,
   },
-
-  themeColor: "#4f0628", // Moved from separate viewport to here
 };
 
 export const viewport: Viewport = {
@@ -77,6 +77,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${chewy.variable} antialiased`}>
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
