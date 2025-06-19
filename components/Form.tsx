@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { User, Mail } from "lucide-react";
+import { User, Mail, Loader2 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { motion } from "motion/react";
 
@@ -9,28 +9,35 @@ export default function Form() {
   const [name, setName] = useState("");
   const [wantsUpdates, setWantsUpdates] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [isLoading, setIsLoading] = useState(false);
   const [showCongrats, setShowCongrats] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    const res = await fetch("/api/waitlist", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, name, wants_updates: wantsUpdates }),
-    });
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name, wants_updates: wantsUpdates }),
+      });
 
-    if (res.ok) {
-      setStatus("success");
-      setEmail("");
-      setName("");
-      setWantsUpdates(false);
-      triggerConfetti();
-    } else {
+      if (res.ok) {
+        setStatus("success");
+        setEmail("");
+        setName("");
+        setWantsUpdates(false);
+        triggerConfetti();
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
       setStatus("error");
     }
 
-    // Clear message after 60 seconds
+    setIsLoading(false);
+
     setTimeout(() => {
       setStatus("idle");
     }, 60000);
@@ -40,7 +47,6 @@ export default function Form() {
     setShowCongrats(true);
     confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
 
-    // Remove blur/overlay after 5s
     setTimeout(() => {
       setShowCongrats(false);
     }, 3000);
@@ -53,7 +59,6 @@ export default function Form() {
       transition={{ duration: 1 }}
       className="relative"
     >
-      {/* 🎉 Blur & Overlay */}
       {showCongrats && (
         <div className="fixed inset-0 z-50 backdrop-blur-[3px] flex items-center justify-center">
           <div className="text-white text-2xl sm:text-4xl font-bold animate-pulse text-center">
@@ -62,14 +67,13 @@ export default function Form() {
         </div>
       )}
 
-      {/* Form */}
       <form
         onSubmit={handleSubmit}
         className={`flex flex-col gap-3 w-full max-w-sm mx-auto transition duration-500 ${
           showCongrats ? "blur-sm pointer-events-none" : ""
         }`}
       >
-        {/* Name Input */}
+        {/* Name */}
         <div className="flex items-center gap-2 bg-neutral-900/60 px-4 py-3 rounded-lg border border-white/10">
           <User className="w-4 h-4 text-white/60" />
           <input
@@ -82,7 +86,7 @@ export default function Form() {
           />
         </div>
 
-        {/* Email Input */}
+        {/* Email */}
         <div className="flex items-center gap-2 bg-neutral-900/60 px-4 py-3 rounded-lg border border-white/10">
           <Mail className="w-4 h-4 text-white/60" />
           <input
@@ -121,15 +125,25 @@ export default function Form() {
           Notify me when it launches
         </label>
 
-        {/* Submit */}
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full mt-0 sm:mt-3 flex group items-center justify-between px-4 py-3 rounded-lg cursor-pointer bg-neutral-900/60 border border-white/10 text-white text-sm transition  hover:bg-white/20"
+          disabled={isLoading}
+          className="w-full mt-0 sm:mt-3 flex group items-center justify-between px-4 py-3 rounded-lg cursor-pointer bg-neutral-900/60 border border-white/10 text-white text-sm transition hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <span>Join the waitlist</span>
-          <span className="text-lg sm:text-2xl group-hover:-translate-x-10 transition-all group-hover:text-y-500 duration-900">
-            →
-          </span>
+          {isLoading ? (
+            <span className="flex items-center gap-2 w-full justify-center">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Sending...
+            </span>
+          ) : (
+            <>
+              <span>Join the waitlist</span>
+              <span className="text-lg sm:text-2xl group-hover:-translate-x-10 transition-all group-hover:text-pink-500 duration-900">
+                →
+              </span>
+            </>
+          )}
         </button>
 
         {/* Status Message */}
