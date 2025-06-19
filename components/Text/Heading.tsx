@@ -26,7 +26,10 @@ export function Heading() {
         transition={{ duration: 1 }}
         className="text-xs sm:text-base text-white/80 font-normal text-center mt-8 sm:mt-4 w-full"
       >
-        <span className="block mx-auto text-white/40 w-full sm:w-[60%]">
+        <span
+          className="block mx-auto text-white/40 tracking-wider w-full sm:w-[60%]"
+          style={{ fontFamily: "var(--font-chewy)" }}
+        >
           Join the waitlist for structured learning paths, curated content,
           progress tracking, and shareable certificates.
         </span>

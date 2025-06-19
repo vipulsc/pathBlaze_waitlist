@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+import { inter, chewy } from "@/font";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} ${chewy.variable} antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }
