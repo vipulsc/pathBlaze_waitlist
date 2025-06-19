@@ -10,7 +10,7 @@ export default function Home() {
       <div className="z-[-2] fixed top-0 left-0 right-0 bottom-0">
         <BackGround />
       </div>
-      <div className="pointer-events-none z-[-1]  fixed top-0 left-0 right-0 bottom-0">
+      <div className="pointer-events-none z-[-1]">
         <LampHeader />
       </div>
       <div className="z-[1] flex flex-col gap-y-20 py-20 items-center justify-center h-screen">
