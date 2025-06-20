@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
   },
 
   manifest: "/site.webmanifest",
