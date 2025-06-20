@@ -64,6 +64,17 @@ export const metadata: Metadata = {
   },
 };
 
+<head>
+  <meta
+    name="twitter:image"
+    content="https://pathblaze.in/og-banner-v2.png?v=4"
+  />
+  <meta
+    property="og:image"
+    content="https://pathblaze.in/og-banner-v2.png?v=4"
+  />
+</head>;
+
 export const viewport: Viewport = {
   themeColor: "#4f0628",
 };
