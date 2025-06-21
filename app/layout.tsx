@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "PathBlaze",
     images: [
       {
-        url: "https://pathblaze.in/banner.png",
+        url: "https://pathblaze.in/pathblaze_banner.png",
         width: 1200,
         height: 630,
         alt: "PathBlaze | Learning Platform",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
       "Track your learning journey across web dev, design, AI, and more. Visual progress. Real rewards.",
     site: "@vipulsc1",
     creator: "@vipulsc1",
-    images: ["https://pathblaze.in/banner.png"],
+    images: ["https://pathblaze.in/pathblaze_banner.png"],
   },
 
   icons: {
